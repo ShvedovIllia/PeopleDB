@@ -30,14 +30,16 @@ public class Show {
 
 	public static void showCity() throws SQLException {
 		System.out.println("all cities!");
-		String query = "select c.* from city c;";
+		String query = "select c.id, c.name as city_name, con.name as country_name from city c join country con on  con.id  = country_id;;";
 		PreparedStatement ps = Main.conn.prepareStatement(query);
 		ResultSet rs = ps.executeQuery();
 
 		List<String> cities = new ArrayList<>();
 
 		while (rs.next()) {
-			cities.add("id:" + rs.getInt("id") + "\t" + rs.getString("name"));
+					cities.add("id:" + rs.getInt("id") + "\t" 
+					+ rs.getString("city_name") + "\t"
+					+ rs.getString("country_name"));
 		}
 		cities.forEach(System.out::println);
 
